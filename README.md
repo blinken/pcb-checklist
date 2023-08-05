@@ -1,3 +1,5 @@
+Fork from https://github.com/azonenberg/pcb-checklist with local additions.
+
 This is a design review checklist for signoff review on all PCB designs.
 
 Please use my checklist, I made these mistakes so you don't have to! Nearly every line item here came from the school

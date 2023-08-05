@@ -1,9 +1,14 @@
 # Layout review checklist
 
-## General
+## General setup
 
 * [ ] [Schematic review](schematic-checklist.md) complete and signed off, including pin swaps done during layout
-* [ ] Layout DRC 100% clean
+* [ ] CAD design rules configured with fab's minimum tolerances, or better
+* [ ] 2-3 standard via sizes chosen (signal, power) & well within fab tolerances
+* [ ] 2-5 standard trace sizes chosen (small signal, small power, main power) & well within fab tolerances
+* [ ] Align one standard trace size to 50ohm coplanar waveguide/stripline width (if used)
+* [ ] Zone clearance set appropriately for coplanar waveguides
+* [ ] Cage/shield footprints placed before layout starts
 
 ## Decoupling
 
@@ -12,14 +17,12 @@
 
 ## DFM / yield enhancement
 
-* [ ] All design rules within manufacturer's capability
-* [ ] Minimize use of vias/traces that push fab limits
-* [ ] Controlled impedance specified in fab notes if applicable
+* [ ] Layout DRC 100% clean
+* [ ] Controlled impedance, design stackup, thickness, plating and any other parameters recorded in text block on Fab layer
 * [ ] Confirm impedance calculations include soldermask, or mask removed from RF traces
 * [ ] Stackup verified with manufacturer and specified in fab notes
-* [ ] Board finish specified in fab notes
 * [ ] If panelizing, add panel location indicators for identifying location-specific reflow issues
-* [ ] (recommended) Layer number markers specified to ensure correct assembly
+* [ ] Layer number markers on each layer copper to ensure correct assembly
 * [ ] Fiducials present (on both sides of board) if targeting automated assembly
 * [ ] Fiducial pattern asymmetric to detect rotated or flipped boards
 * [ ] Soldermask/copper clearance on fiducials respected
@@ -27,13 +30,13 @@
 
 ## Footprints
 
-* [ ] Confirm components are available in the selected package
+* [ ] Confirm components are in stock in the selected package
 * [ ] Confirm components (especially connectors and power regulators) are capable of desired current in the selected package
-* [ ] Verify schematic symbol matches the selected package
+* [ ] Verify schematic symbol matches the selected package (confirm datasheet pins vs PCB copper wiring)
 * [ ] Confirm pinout diagram is from top vs bottom of package
-* [ ] (recommended) PCB printed 1:1 on paper and checked against physical parts
-* [ ] 3D models obtained (if available) and checked against footprints
+* [ ] 3D models obtained (if available); board reviewed in 3D to check for courtyard/assembly issues
 * [ ] Soldermask apertures on all SMT lands and PTH pads
+* [ ] Soldermask fingers between all IC pads
 
 ## Differential pairs
 * [ ] Routed differentially
@@ -46,15 +49,21 @@
 * [ ] Length matched if required
 * [ ] Minimize crossing reference plane splits/slots or changing layers, use caps/stitching vias if unavoidable
 * [ ] Confirm fab can do copper to edge of PCB for edge launch connectors
-* [ ] Double-check pad width on connectors and add plane cutouts if needed to minimize impedance discontinuities
+* [ ] Double-check pad width on connectors and add ground plane cutouts if needed to minimize impedance discontinuities
 * [ ] Add stitching vias to ground plane in large top layer ground pads (SMA etc) to avoid resonances
 
 ## Power
-* [ ] Minimal slots in planes from via antipads
+* [ ] Power planes are not broken by closely-spaced fence vias
+* [ ] Unbroken ground planes beneath all high-current traces
 * [ ] Sufficient width for planes/traces for required current
 
+## RF
+* [ ] High-power outputs well separated from LNA inputs
+* [ ] Large clearance around magnetic components (eg. circulators)
+* [ ] LNA inputs clear of all other active components
+
 ## Sensitive analog
-* [ ] Guard ring / EMI cages provided if needed
+* [ ] All sensitive components under cages/shields
 * [ ] Physically separated from high current SMPS or other noise sources
 * [ ] Consider microphone effect on MLCCs if near strong sound sources
 
@@ -88,15 +97,24 @@ bending stress
 
 ## Solder mask
 
-* [ ] Confirm SMD vs NSMD pad geometry
 * [ ] Adequate clearance around pads (typ. 50 um)
+* [ ] Fingers between pads on small-pitch components
 
 ## Silkscreen
 
-* [ ] Text size within fab limits
+* [ ] Text size within fab limits & consistent across board
 * [ ] Text not overlapping drills or component pads
+* [ ] Text orientation consistent (within reason)
 * [ ] Text removed entirely in, or moved outside of, high component/via density areas
-* [ ] Traceability markings (rev, date, name, etc) provided
+* [ ] Unnecessary silkscreen removed for clarity
+* [ ] Power connector polarity marked and verified
+* [ ] LED colour marked (if hand assembly)
+* [ ] LED/switch/connector purpose marked
+* [ ] Spare GPIO headers marked with port name
+* [ ] Design/assembly notes included where space permits (antenna dimensions/centre frequency, wiring notes, baud speed, assembly instructions/screw size)
+* [ ] High voltage/heat/ESD safety warnings included (if appropriate)
+* [ ] Link to project github included (open hardware designs)
+* [ ] Traceability markings (revision, date, name, etc) provided and updated
 * [ ] Silkscreen box provided for writing/sticking serial number
 * [ ] Text mirrored properly on bottom layer
 * [ ] Test points labeled if space permits
