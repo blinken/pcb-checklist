@@ -14,6 +14,9 @@ off as invalid.
 * [ ] Ceramic capacitors appropriately de-rated for C/V curve
 * [ ] Polarized components specified in schematic if using electrolytic caps etc
 * [ ] Filters: component footprint is large enough for rated current, and appropriate for RF characteristics
+* [ ] Different component values minimised/combined where possible
+* [ ] Parts selected for every schematic symbol
+* [ ] "Basic" parts selected for passives where possible
 
 ## Power supply
 
@@ -32,7 +35,7 @@ off as invalid.
 * [ ] Current-sense resistors on power rails after regulator output caps, not in switching loop
 * [ ] Remote sense used on low voltage or high current rails
 * [ ] Linear regulators and voltage reference ICs are stable with selected output cap ESR
-* [ ] Confirm regulator strap pin configuration against datasheet
+* [ ] Confirm regulator strap pin configuration against datasheet (check for voltage offset)
 * [ ] Confirm power rail sequencing against device datasheets (if needed)
 
 ### Decoupling
@@ -44,6 +47,7 @@ off as invalid.
 ### General
 * [ ] All power inputs fed by correct voltage
 * [ ] Analog rails filtered/isolated from digital circuitry as needed
+* [ ] LNAs, input opamps on dedicated power rails
 
 ## Signals
 
@@ -53,9 +57,15 @@ off as invalid.
 * [ ] Pullups on all open-drain outputs
 * [ ] TX/RX wired correctly for UART, SPI, MGT, etc
 * [ ] Enable pins: Active high/low polarity correct
+* [ ] EXTI and/or timer pins used for UI elements (buttons, rotary encoders)
+* [ ] STM32: special pin functions confirmed and allocated in Eclipse
+* [ ] STM32: check software pullups/pulldowns are available on pins that need it (I2C)
 
 ### Analog/RF
 
+* [ ] DC blocking cap before all amplifiers, and on all inputs/outputs
+* [ ] Amplifier bias inductors + filter inductors do not short power rail to ground
+* [ ] Gas discharge protection on all RF inputs/outputs
 * [ ] RC time constant for attenuators sane given ADC sampling frequency
 * [ ] Verify frequency response of RF components across entire operating range. Don't assume a "1-100 MHz" amplifier has the
 same gain across the whole range.
@@ -84,8 +94,10 @@ same gain across the whole range.
 * [ ] Use 0-ohm resistors/solder jumpers vs direct hard-wiring for strap pins when possible
 * [ ] Provide multiple ground clips/points for scope probes
 * [ ] Multimeter + U.FL test points on all power rails
-* [ ] Dedicated ground in close proximity to test points
 * [ ] Test points on interesting signals which may need probing for bringup/debug
+* [ ] Dedicated ground in close proximity to test points
+* [ ] LED on every power rail
+* [ ] Several spare GPIOs broken out, unless board completely characterised
 
 ## Thermal
 

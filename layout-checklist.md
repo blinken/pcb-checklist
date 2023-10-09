@@ -8,12 +8,14 @@
 * [ ] 2-5 standard trace sizes chosen (small signal, small power, main power) & well within fab tolerances
 * [ ] Align one standard trace size to 50ohm coplanar waveguide/stripline width (if used)
 * [ ] Zone clearance set appropriately for coplanar waveguides
+* [ ] Appropriate net clearance set for high-voltage nets
 * [ ] Cage/shield footprints placed before layout starts
 
 ## Decoupling
 
 * [ ] Decoupling caps as close to power pins as possible
 * [ ] Low inductance mounting used for decoupling (prefer ViP if available, otherwise "[]8" shaped side vias
+* [ ] Large planes filled with stitching vias (5mm grid, or 1/20th wavelength whichever smaller)
 
 ## DFM / yield enhancement
 
@@ -56,16 +58,21 @@
 * [ ] Power planes are not broken by closely-spaced fence vias
 * [ ] Unbroken ground planes beneath all high-current traces
 * [ ] Sufficient width for planes/traces for required current
+* [ ] High voltage - minimum clearance sufficient between all points
 
 ## RF
 * [ ] High-power outputs well separated from LNA inputs
-* [ ] Large clearance around magnetic components (eg. circulators)
 * [ ] LNA inputs clear of all other active components
+* [ ] Keepout under LNA section - no traces or active components on other layers
+* [ ] Large clearance around magnetic components (eg. circulators)
+* [ ] RF traces smooth/rounded
+* [ ] Differential RF pairs have 100ohm impedance, not 50
 
 ## Sensitive analog
 * [ ] All sensitive components under cages/shields
 * [ ] Physically separated from high current SMPS or other noise sources
 * [ ] Consider microphone effect on MLCCs if near strong sound sources
+* [ ] Power ground return does not cross under sensitive sections
 
 ## Mechanical
 * [ ] Confirm all connectors to other systems comply with the appropriate mechanical standard (connector orientation, key position, etc)
@@ -124,6 +131,7 @@ bending stress
 * [ ] Teardrops on all wire-to-pad connections
 
 ## CAM production
+* [ ] Check impedance-matched width against final fab stackup
 * [ ] KiCAD specific: rerun DRC and zone fills before exporting CAM files to ensure proper results
 * [ ] Export gerber/drill files at the same time to ensure consistency
 * [ ] Visually verify final CAM files to ensure no obvious misalignments
